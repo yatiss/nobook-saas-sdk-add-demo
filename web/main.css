@@ -1,0 +1,136 @@
+body {
+    margin: 0;
+    overflow: hidden;
+}
+li{
+    list-style-type:none;
+}
+div {
+    font: 14px;
+}
+.left-list {
+    width: 30%;
+    height: 100%;
+    position: absolute;
+    border: 1px solid red;
+}
+.right-box {
+    border: 1px solid red;
+    width: 70%;
+    height: 100%;
+    position: absolute;
+    left: 30%;
+    overflow: scroll;
+    display: flex;
+    flex-wrap: wrap;
+}
+.right-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+.box {
+    margin: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.btn-cla{
+    display: block;
+}
+.item{
+    width: 350px;
+    height: 200px;
+    position: relative;
+    border: 1px solid red;
+    margin: 5px;
+    background-size: cover;
+}
+.exam-item {
+    width: 350px;
+    height: 200px;
+    position: relative;
+    border: 1px solid red;
+    margin: 5px;
+    background-color: bisque;
+}
+.div-name {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    bottom: 2px;
+    width: 280px;
+    color: #009688;
+    text-align: center;
+}
+.fir-btns{
+    display: inline-block;
+}
+.switch-cla {
+    position: absolute;
+    bottom: 60px;
+    display: inline-block;
+    width: 30%;
+    border: 1px solid mediumvioletred;
+    height: 40px;
+}
+.bot-cla {
+    position: absolute;
+    bottom: 13px;
+    display: inline-block;
+}
+.ban-label {
+    margin-left: 30px;
+    font-size: 20px;
+    color: darkred;
+}
+.use-cla {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.ni-cla{
+    margin-left: 10px;
+    font-size: 14px;
+    color: red;
+}
+#exam-lab{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.lab-box{
+    display: block;
+    background-color: burlywood;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 50px;
+    position: absolute;
+}
+.lab-btns{
+    background-color: aquamarine;
+    height: 50px;
+    bottom: 0;
+    display: inline-flex;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+.click-btns{
+    height: 40px;
+    min-width: 100px;
+}
+.exam-lab-list{
+    display: block;
+    background-color: goldenrod;
+    width: 100%;
+    height: 140px;
+    overflow: scroll;
+}
+.lab-li{
+    border: 1px solid red;
+    margin: 5px;
+}
+.stu-list-btn{
+    display: block;
+}
