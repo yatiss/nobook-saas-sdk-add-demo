@@ -37,7 +37,7 @@ class main {
          *                              账户信息
          ************************************************************* */
         // 需传入信息
-        this.uniqueId = 'test3'; // 用户账户,必填
+        this.uniqueId = 'test1'; // 用户账户,必填
         this.labId = ''; // 实验id,列表接口获取,在预览与编辑时需传入
         this.pidType = PID_TYPE.PHYSICAL_ADD; // 产品标识,nobook提供
         /** ************************************************************
@@ -62,6 +62,7 @@ class main {
                 DEBUG: true,
                 // EXAM_VIEW_HOST_DEBUG: 'http://172.18.1.146:3333',
                 EXAM_VIEW_HOST_DEBUG: 'http://examphysplayer.nobook.cc',
+                ICON_HOST_PHYSICAL_DEBUG: 'ttp://addphys.nobook.cc/v1/assets/physics',
                 pidType: this.pidType,
                 appKey: SECRET_DATA.appKey, // nobook 提供
                 from: '作业帮'
@@ -268,11 +269,21 @@ class main {
         // 学生端:打开实验,开始考试
         $('.stu-start-cla').off('click');
         $('.stu-start-cla').click((evt) => {
-            $('#exam-submit-btn').show(); // 学生端需要提交
+            const stuUniqueId = $(evt.target).siblings('input').val(); // 要考试的学生
+            if (!stuUniqueId.length) {
+                layer.msg('请输入需要参加考试的学生id');
+                return;
+            }
+            //
             $('#exam-lab').show(); // 显示实验面板
             const isexam = $(evt.target).text() === '参加考试' ? 1 : 0;
+            // 学生端考试模式需要提交
+            if (isexam) {
+                $('#exam-submit-btn').show();
+            } else {
+                $('#exam-submit-btn').hide();
+            }
             this.tempUniqueId = this.uniqueId;
-            const stuUniqueId = $(evt.target).siblings('input').val(); // 要考试的学生
             const stuArr = evt.target.value.split('#'); // 要考试的学生
             const courseId = stuArr[0];
             this.temp_examSn = stuArr[1]; // 提交时用

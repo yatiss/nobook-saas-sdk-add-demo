@@ -45,6 +45,7 @@ div {
     border: 1px solid red;
     margin: 5px;
     background-size: cover;
+    background-color: bisque;
 }
 .exam-item {
     width: 350px;
