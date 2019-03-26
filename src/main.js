@@ -44,9 +44,12 @@ class main {
          *                              第一步: 页面加载完成初始化
          ************************************************************* */
         $(() => {
+            // 考试阶段通知部分
             this.addSDK.addListener(MESSAGE_TYPE.NOBOOK_ONE_STEP, (evt) => {
-                console.log('~~~~~完成实验步骤:', evt.data);
+                console.log('~~~~~考试完成实验步骤:', evt.data);
+                layer.msg('已完成步骤: ' + evt.data.params.msg);
             });
+            // 练习阶段通知部分
             this.addSDK.addListener(MESSAGE_TYPE.NOBOOK_PRACICE_ONE_TITLE, (evt) => {
                 console.log('~~~~~练习模式-步骤标题:', evt.data);
             });
@@ -85,7 +88,7 @@ class main {
         const pidScope = this.addSDK.getAllLabPidScope(); // 用逗号隔开的产品id
         const nickname = this.uniqueId; // 这一项为用户昵称,此demo中用 uniqueId 代替
         const {timestamp, sign} = getServerData(this.uniqueId, nickname, pidScope);
-       return this.addSDK.login({
+        return this.addSDK.login({
             uniqueId: this.uniqueId,
             nickname: nickname,
             timestamp,
@@ -163,6 +166,7 @@ class main {
                     }
                     break;
                 case '返回':
+                    this.clearIframe($('#viewIframeId')[0]);
                     $('#exam-lab').hide();
                     if (this.tempUniqueId) {
                         this.switchLogin(this.tempUniqueId);
@@ -170,6 +174,7 @@ class main {
                     }
                     break;
                 case '提交':
+                    this.clearIframe($('#viewIframeId')[0]);
                     $('#exam-lab').hide();
                     if (this.tempUniqueId) {
                         this.addSDK.saveExam({
@@ -263,7 +268,10 @@ class main {
             $('#exam-lab').show(); // 显示实验面板
             const courseId = evt.target.value;
             const isexam = $(evt.target).text() === '参加考试' ? 1 : 0;
-            const url = this.addSDK.getExamViewURL({courseId, isexam});
+            const url = this.addSDK.getExamViewURL({
+                courseId,
+                isexam
+            });
             $('#viewIframeId').attr('src', url);
         });
         // 学生端:打开实验,开始考试
@@ -290,7 +298,10 @@ class main {
             // 切换到该学生进行考试
             this.switchLogin(stuUniqueId).then(() => {
                 // isexam: 1为考试,0为练习
-                const url = this.addSDK.getExamViewURL({courseId, isexam});
+                const url = this.addSDK.getExamViewURL({
+                    courseId,
+                    isexam
+                });
                 console.log('~~~url:', url);
                 $('#viewIframeId').attr('src', url);
             });
@@ -334,7 +345,7 @@ class main {
                             testId: testId
                         }).then((dataObj) => {
                             console.log('~~dataObj:', dataObj);
-                             let stepStr = '';
+                            let stepStr = '';
                             dataObj.data.steps.forEach((bitStemItem, ind1) => {
                                 // 大步骤
                                 stepStr += `
@@ -429,7 +440,17 @@ class main {
             console.log('发布考试:', data);
             layer.msg('发布完成');
             this.freshRightBox();
+            this.freshPublishExamBtnEnabled();
         });
+    }
+
+    clearIframe(iframe) {
+        iframe.src = 'about:blank';
+        try {
+            iframe.contentWindow.document.write('');
+            iframe.contentWindow.document.clear();
+        } catch (e) {
+        }
     }
 
 }
