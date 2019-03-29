@@ -62,10 +62,10 @@ class main {
             // 先添加设置
             this.addSDK.setConfig({
                 // 登录部分(所有操作必须登陆后执行)
-                DEBUG: true,
+                // DEBUG: true,
                 // EXAM_VIEW_HOST_DEBUG: 'http://172.18.1.146:3333',
-                EXAM_VIEW_HOST_DEBUG: 'http://examphysplayer.nobook.cc',
-                ICON_HOST_PHYSICAL_DEBUG: 'ttp://addphys.nobook.cc/v1/assets/physics',
+                // EXAM_VIEW_HOST_DEBUG: 'http://examphysplayer.nobook.cc',
+                // ICON_HOST_PHYSICAL_DEBUG: 'http://addphys.nobook.cc/v1/assets/physics',
                 pidType: this.pidType,
                 appKey: SECRET_DATA.appKey, // nobook 提供
                 from: '作业帮'
@@ -174,18 +174,17 @@ class main {
                     }
                     break;
                 case '提交':
-                    this.clearIframe($('#viewIframeId')[0]);
-                    $('#exam-lab').hide();
                     if (this.tempUniqueId) {
+                        this.switchLogin(this.tempUniqueId);
+                        this.tempUniqueId = null;
                         this.addSDK.saveExam({
                             iframeWindow: $('#viewIframeId')[0].contentWindow,
                             examSn: this.temp_examSn,
                             timeLength: 1000 // 单位秒
                         }).then((result) => {
+                            console.log(result);
                             layer.msg('提交成功!');
                         });
-                        this.switchLogin(this.tempUniqueId);
-                        this.tempUniqueId = null;
                     }
                     break;
                 case '切换版本':
@@ -272,6 +271,7 @@ class main {
                 courseId,
                 isexam
             });
+            console.log('预览:', url);
             $('#viewIframeId').attr('src', url);
         });
         // 学生端:打开实验,开始考试
