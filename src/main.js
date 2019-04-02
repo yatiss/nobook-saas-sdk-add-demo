@@ -68,7 +68,7 @@ class main {
                 // ICON_HOST_PHYSICAL_DEBUG: 'http://addphys.nobook.cc/v1/assets/physics',
                 pidType: this.pidType,
                 appKey: SECRET_DATA.appKey, // nobook 提供
-                from: '作业帮'
+                from: '网校'
             });
             // ------------nobook内部测试用,对接的小伙伴可忽略此判断------------//
             if (this.addSDK.DEBUG) {
