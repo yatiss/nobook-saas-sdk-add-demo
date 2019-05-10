@@ -37,7 +37,7 @@ class main {
          *                              账户信息
          ************************************************************* */
         // 需传入信息
-        this.uniqueId = 'test1'; // 用户账户,必填
+        this.uniqueId = 'test5'; // 用户账户,必填
         this.labId = ''; // 实验id,列表接口获取,在预览与编辑时需传入
         this.pidType = PID_TYPE.PHYSICAL_ADD; // 产品标识,nobook提供
         /** ************************************************************
@@ -45,9 +45,13 @@ class main {
          ************************************************************* */
         $(() => {
             // 考试阶段通知部分
-            this.addSDK.addListener(MESSAGE_TYPE.NOBOOK_ONE_STEP, (evt) => {
-                console.log('~~~~~考试完成实验步骤:', evt.data);
-                layer.msg('已完成步骤: ' + evt.data.params.msg);
+            this.addSDK.addListener(MESSAGE_TYPE.NOBOOK_ONE_STEP_CORRECT, (evt) => {
+                console.log('-->考试模式反馈消息~~~~~考试单步骤正确:', evt.data);
+                layer.msg('考试单步骤正确: ' + evt.data.params.msg);
+            });
+            this.addSDK.addListener(MESSAGE_TYPE.NOBOOK_ONE_STEP_WRONG, (evt) => {
+                console.log('-->考试模式反馈消息~~~~~考试单步骤错误:', evt.data);
+                layer.msg('考试单步骤错误: ' + evt.data.params.msg);
             });
             // 练习阶段通知部分
             this.addSDK.addListener(MESSAGE_TYPE.NOBOOK_PRACICE_ONE_TITLE, (evt) => {
@@ -63,7 +67,8 @@ class main {
             this.addSDK.setConfig({
                 // 登录部分(所有操作必须登陆后执行)
                 // DEBUG: true,
-                // EXAM_VIEW_HOST_DEBUG: 'http://172.18.1.146:3333',
+                // EXAM_VIEW_HOST_DEBUG: 'http://192.168.5.110:3333',
+                // EXAM_VIEW_HOST_DEBUG: ' http://192.168.190.1:8080',
                 // EXAM_VIEW_HOST_DEBUG: 'http://examphysplayer.nobook.cc',
                 // ICON_HOST_PHYSICAL_DEBUG: 'http://addphys.nobook.cc/v1/assets/physics',
                 pidType: this.pidType,
@@ -182,7 +187,7 @@ class main {
                             examSn: this.temp_examSn,
                             timeLength: 1000 // 单位秒
                         }).then((result) => {
-                            console.log(result);
+                            console.log('*************提交成功返回结果:', result);
                             layer.msg('提交成功!');
                         });
                     }
@@ -207,7 +212,7 @@ class main {
 
     freshRightBox() {
         $('.right-box').empty();
-        this.addSDK.getCourseList().then((obj) => {
+        this.addSDK.getCourseList({page: 1, limit: 50}).then((obj) => {
             console.log('~~获取实验列表:', obj);
             obj.data.data.forEach((item) => {
                 $('.right-box').append($(this.getSourceItem(item.course_id, item.name, item.thumbnailfull)).click((evt) => {
