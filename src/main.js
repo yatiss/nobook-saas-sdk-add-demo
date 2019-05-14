@@ -37,7 +37,7 @@ class main {
          *                              账户信息
          ************************************************************* */
         // 需传入信息
-        this.uniqueId = 'test5'; // 用户账户,必填
+        this.uniqueId = 'test2'; // 用户账户,必填
         this.labId = ''; // 实验id,列表接口获取,在预览与编辑时需传入
         this.pidType = PID_TYPE.PHYSICAL_ADD; // 产品标识,nobook提供
         /** ************************************************************
@@ -66,14 +66,18 @@ class main {
             // 先添加设置
             this.addSDK.setConfig({
                 // 登录部分(所有操作必须登陆后执行)
-                // DEBUG: true,
-                // EXAM_VIEW_HOST_DEBUG: 'http://192.168.5.110:3333',
-                // EXAM_VIEW_HOST_DEBUG: ' http://192.168.190.1:8080',
-                // EXAM_VIEW_HOST_DEBUG: 'http://examphysplayer.nobook.cc',
-                // ICON_HOST_PHYSICAL_DEBUG: 'http://addphys.nobook.cc/v1/assets/physics',
                 pidType: this.pidType,
                 appKey: SECRET_DATA.appKey, // nobook 提供
-                from: '网校'
+                from: '网校',
+                // 此属性为nobook内部调试使用,对接放将debugSettings属性去掉即可
+                // debugSettings: {
+                //     DOC_DEBUG: false,
+                //     PHYSICAL_ADD: {
+                //         PLAYER_DOC: false,
+                //         PLAYER: 'http://localhost:4545'
+                //     },
+                //     CHEMICAL_ADD: {}
+                // }
             });
             // ------------nobook内部测试用,对接的小伙伴可忽略此判断------------//
             if (this.addSDK.DEBUG) {
