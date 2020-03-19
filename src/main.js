@@ -68,24 +68,8 @@ class main {
                 // 登录部分(所有操作必须登陆后执行)
                 pidType: this.pidType,
                 appKey: SECRET_DATA.appKey, // nobook 提供
-                from: '网校',
-                // 此属性为nobook内部调试使用,对接放将debugSettings属性去掉即可
-                // debugSettings: {
-                //     DOC_DEBUG: false,
-                //     PHYSICAL_ADD: {
-                //         PLAYER_DOC: false,
-                //         PLAYER: 'http://localhost:4545'
-                //     },
-                //     CHEMICAL_ADD: {}
-                // }
+                from: 'yuanfudao'
             });
-            // ------------nobook内部测试用,对接的小伙伴可忽略此判断------------//
-            if (this.addSDK.DEBUG) {
-                SECRET_DATA.appKey = APPKEY_TEST;
-                SECRET_DATA.appSecret = APPSECRET_TEST;
-                this.addSDK.appKey = SECRET_DATA.appKey;
-            }
-            // ------------nobook内部测试用end------------//
             this.init();
             this.login();
         });
@@ -218,15 +202,17 @@ class main {
 
     freshRightBox() {
         $('.right-box').empty();
-        this.addSDK.getCourseList({page: 1, limit: 50}).then((obj) => {
-            console.log('~~获取实验列表:', obj);
-            obj.data.data.forEach((item) => {
-                $('.right-box').append($(this.getSourceItem(item.course_id, item.name, item.thumbnailfull)).click((evt) => {
-                    this.freshPublishExamBtnEnabled();
-                }));
-            });
-            this.freshBtnHandles();
+        // 为猿辅导添加3个实验并后台赋予权限
+        [
+            {course_id: 51, name: "用伏安法测小灯泡电阻", thumbnail: "experiments/experiment24.png", thumbnailfull: "https://imgcdn.nobook.com/exam/resource/addicomponents/v1/assets/physics/experiments/experiment24.png"},
+            {course_id: 54, name: "探究重力大小跟质量的关系", thumbnail: "experiments/experiment27.png", thumbnailfull: "https://imgcdn.nobook.com/exam/resource/addicomponents/v1/assets/physics/experiments/experiment27.png"},
+            {course_id: 66, name: "探究水沸腾时温度变化的特点", thumbnail: "experiments/experiment04.png", thumbnailfull: "https://imgcdn.nobook.com/exam/resource/addicomponents/v1/assets/physics/experiments/experiment04.png"}
+        ].forEach((item) => {
+            $('.right-box').append($(this.getSourceItem(item.course_id, item.name, item.thumbnailfull)).click((evt) => {
+                this.freshPublishExamBtnEnabled();
+            }));
         });
+        this.freshBtnHandles();
     }
 
     switchLogin(uniqueId) {

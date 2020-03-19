@@ -15,12 +15,9 @@ div {
     border: 1px solid red;
 }
 .right-box {
-    border: 1px solid red;
     width: 70%;
-    height: 100%;
     position: absolute;
     left: 30%;
-    overflow: scroll;
     display: flex;
     flex-wrap: wrap;
 }

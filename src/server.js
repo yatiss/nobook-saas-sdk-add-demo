@@ -5,8 +5,9 @@ import * as md5
  *      即 appSecret 必须要隐藏, 即签名sign为后端输出
  ******************************************************* */
 export const SECRET_DATA = {
-  appKey: 'xxxx', // nobook提供
-  appSecret: 'xxxx' // 重要注意: nobook提供(appSecret需后台保存,如果前台暴露引发任何损失概不负责)
+  // 猿辅导专用授权
+  appKey: '536747', // nobook提供
+  appSecret: 'NOnSZZ6AgpfsGJoCwr7JkdXz9gMufZ7M' // 重要注意: nobook提供(appSecret需后台保存,如果前台暴露引发任何损失概不负责)
 };
 
 /**
