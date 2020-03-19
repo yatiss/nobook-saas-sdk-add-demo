@@ -193,6 +193,8 @@ class main {
                         }).then((result) => {
                             console.log('*************提交成功返回结果:', result);
                             layer.msg('提交成功!');
+                        }).catch(err => {
+                           console.log('*********************提交失败:', err);
                         });
                     }
                     break;
